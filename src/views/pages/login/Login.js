@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'; // Import useState
+import { Link } from 'react-router-dom';
 import {
   CButton,
   CCard,
@@ -12,11 +12,49 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
-
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
+import Cookies from 'js-cookie'; // Ensure you have this import for Cookies
+import { useDispatch } from 'react-redux'; // If you're using redux, make sure to import useDispatch
+import toast from 'react-hot-toast'
+import { setUser } from '../../../store/authSlice';
+import { ipoStatusApi } from '../../../services/fanxangeApi';
 const Login = () => {
+  // Initialize state variables
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch(); // Use this if you're using Redux
+
+  const handleLogin = async () => {
+    if (!email) {
+      toast.error("Please fill in the email");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Please fill in the password");
+      return;
+    }
+
+    var data = { email, password };
+
+    try {
+      const ldata = await ipoStatusApi.login(data);
+
+      if (ldata.data && ldata.data.token) {
+        Cookies.set('authToken', ldata.data.token);
+        dispatch(setUser(ldata.data)); // Dispatch setUser action with the login data
+      } else {
+        toast.error("Invalid login credentials");
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+      toast.error("Login failed. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -32,21 +70,17 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput placeholder="Username" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
+                      <CFormInput type="password" placeholder="Password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={handleLogin}>
                           Login
                         </CButton>
                       </CCol>
@@ -80,7 +114,7 @@ const Login = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

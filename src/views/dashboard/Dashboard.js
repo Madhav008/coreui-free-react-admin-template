@@ -122,7 +122,7 @@ const Dashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <Link to="/players">
-                          <CButton color="info" >Show</CButton>
+                          <CButton color="info" variant='outline'>Show</CButton>
                         </Link>
                       </CTableDataCell>
                     </CTableRow>

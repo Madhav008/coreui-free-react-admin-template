@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilSpeedometer } from '@coreui/icons'
+import { cilFindInPage, cilSpeedometer } from '@coreui/icons'
 import { CNavItem } from '@coreui/react'
 
 const _nav = [
@@ -12,6 +12,15 @@ const _nav = [
     badge: {
       color: 'info',
       text: 'NEW',
+    },
+  }, {
+    component: CNavItem,
+    name: 'Orders',
+    to: '/dashboard',
+    icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
+    badge: {
+      color: 'warning',
+      text: 'Latest',
     },
   },
 
