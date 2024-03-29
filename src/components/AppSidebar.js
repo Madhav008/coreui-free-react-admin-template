@@ -18,12 +18,13 @@ import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
 import navigation from '../_nav'
+import { setSidebar, setSidebarFold } from '../store/themeStore'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
-  const sidebarShow = useSelector((state) => state.sidebarShow)
-
+  const unfoldable = useSelector((state) => state.app.sidebarUnfoldable)
+  const sidebarShow = useSelector((state) => state.app.sidebarShow)
+  console.log(unfoldable);
   return (
     <CSidebar
       className="border-end"
@@ -32,7 +33,7 @@ const AppSidebar = () => {
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible })
+        dispatch(setSidebar(visible))
       }}
     >
       <CSidebarHeader className="border-bottom">
@@ -43,13 +44,14 @@ const AppSidebar = () => {
         <CCloseButton
           className="d-lg-none"
           dark
-          onClick={() => dispatch({ type: 'set', sidebarShow: false })}
+          onClick={() => dispatch(setSidebar(false))
+          }
         />
       </CSidebarHeader>
       <AppSidebarNav items={navigation} />
       <CSidebarFooter className="border-top d-none d-lg-flex">
         <CSidebarToggler
-          onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+          onClick={() => dispatch(setSidebarFold(!unfoldable))}
         />
       </CSidebarFooter>
     </CSidebar>
