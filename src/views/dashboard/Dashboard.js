@@ -27,6 +27,7 @@ import CIcon from '@coreui/icons-react';
 import { cilPeople } from '@coreui/icons';
 
 import avatar1 from 'src/assets/images/avatars/1.jpg';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -81,6 +82,8 @@ const Dashboard = () => {
                     <CTableHeaderCell className="bg-body-tertiary text-center">Payment Method</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Actions</CTableHeaderCell> {/* Add this line */}
+                    <CTableHeaderCell className="bg-body-tertiary"> </CTableHeaderCell> {/* Add this line */}
+
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -116,6 +119,11 @@ const Dashboard = () => {
                       </CTableDataCell>
                       <CTableDataCell>
                         <CButton color="primary" onClick={() => handleEditClick(item)}>Edit</CButton> {/* Add this line */}
+                      </CTableDataCell>
+                      <CTableDataCell>
+                        <Link to="/players">
+                          <CButton color="info" >Show</CButton>
+                        </Link>
                       </CTableDataCell>
                     </CTableRow>
                   ))}
