@@ -31,8 +31,15 @@ axiosInstance.interceptors.request.use(
 const apiEndpoints = {
     login: 'auth/login',
     getProfile: 'auth/user',
-    updateUser: 'api/users/profile',
-    deleteUser: 'api/users/:id',
+    getUsers: 'auth/all',
+    getStartedMatches: 'match/live',
+    getNotStartedMatches: 'match/upcomming',
+    getCompletedMatches: 'match/result',
+    getPlayers: 'player',
+    getOrders: 'order',
+    getMatchOrders: 'order/match/:matchid',
+    getPlayersOrders: 'order/player'
+
 };
 
 // Define functions to make Axios requests for your endpoints
@@ -51,8 +58,21 @@ const makeRequest = async (url, method = 'GET', data = null) => {
 
 export const ipoStatusApi = {
     login: (requestData) => makeRequest(apiEndpoints.login, 'POST', requestData),
-    getProfile: () => makeRequest(apiEndpoints.getProfile),
     deleteUser: (userid) => makeRequest(apiEndpoints.deleteUser.replace(':id', userid), 'DELETE'),
+    getProfile: () => makeRequest(apiEndpoints.getProfile),
+    getUsers: () => makeRequest(apiEndpoints.getUsers),
+
+    getStartedMatches: () => makeRequest(apiEndpoints.getStartedMatches),
+    getNotStartedMatches: () => makeRequest(apiEndpoints.getNotStartedMatches),
+    getCompletedMatches: () => makeRequest(apiEndpoints.getCompletedMatches),
+
+    getPlayers: (requestData) => makeRequest(apiEndpoints.getPlayers, 'POST', requestData),
+
+    getOrders: () => makeRequest(apiEndpoints.getOrders, 'POST'),
+    getMatchOrders: (matchid) => makeRequest(apiEndpoints.getMatchOrders.replace(':matchid', matchid)),
+    getPlayersOrders: (requestData) => makeRequest(apiEndpoints.getPlayers, 'POST', requestData),
+
+
 
     logout: () => {
         Cookies.remove('authToken');

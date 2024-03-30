@@ -1,28 +1,47 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilFindInPage, cilSpeedometer } from '@coreui/icons'
-import { CNavItem } from '@coreui/react'
+import { cilCursor, cilFindInPage, cilSpeedometer } from '@coreui/icons'
+import { CNavGroup, CNavItem } from '@coreui/react'
 
 const _nav = [
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Matches',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-  }, {
+    items: [
+      {
+        component: CNavItem,
+        name: 'Not Started',
+        to: '/dashboard/notstarted',
+        badge: {
+          color: 'info',
+          text: 'NEW',
+        },
+      },
+      {
+        component: CNavItem,
+        name: 'Started',
+        to: '/dashboard/started',
+        badge: {
+          color: 'danger',
+          text: 'Live',
+        },
+      },
+      {
+        component: CNavItem,
+        name: 'Completed',
+        to: '/dashboard/completed',
+      },
+    ],
+  },
+  {
     component: CNavItem,
     name: 'Orders',
-    to: '/dashboard',
+    to: '/orders',
     icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
-    badge: {
-      color: 'warning',
-      text: 'Latest',
-    },
   },
+
 
 ]
 
