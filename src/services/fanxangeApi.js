@@ -38,7 +38,7 @@ const apiEndpoints = {
     getPlayers: 'player',
     getOrders: 'order',
     getMatchOrders: 'order/match/:matchid',
-    getPlayersOrders: 'order/player'
+    getMatchOrderbyUser: 'order/matchOrderbyUser/:matchId'
 
 };
 
@@ -70,7 +70,8 @@ export const ipoStatusApi = {
 
     getOrders: () => makeRequest(apiEndpoints.getOrders, 'POST'),
     getMatchOrders: (matchid) => makeRequest(apiEndpoints.getMatchOrders.replace(':matchid', matchid)),
-    getPlayersOrders: (requestData) => makeRequest(apiEndpoints.getPlayers, 'POST', requestData),
+    getMatchOrderbyUser: (matchid) => makeRequest(apiEndpoints.getMatchOrderbyUser.replace(':matchId', matchid)),
+
 
 
 

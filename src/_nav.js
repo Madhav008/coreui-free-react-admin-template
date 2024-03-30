@@ -36,10 +36,22 @@ const _nav = [
     ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Orders',
     to: '/orders',
     icon: <CIcon icon={cilFindInPage} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Match Orders',
+        to: '/orders',
+      },
+      {
+        component: CNavItem,
+        name: 'User Orders',
+        to: '/user',
+      },
+    ],
   },
 
 
